@@ -1,0 +1,16 @@
+security:
+  oauth2:
+    client:
+      clientId: statistics-service
+      clientSecret: 123
+      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+
+
+server:
+  context-path: /statistics
+  port: 7000
+
+rates:
+  url: http://api.fixer.io

@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>index2</title>
+	</head>
+	<body>
+		<div>
+			<button id="but">button</button>
+			<button id="but2">button2</button>
+			<button id="but3">button3</button>
+			<button id="but4">button4</button>
+			<span></span>
+		</div>
+		<script src="js/lib/jquery.min.js"></script>
+		<script type="text/javascript">
+		var token = '';
+			$("#but").click(function(){
+				$.ajax({
+					url: 'uaa/oauth/token',
+					datatype: 'json',
+					type: 'post',
+					headers: {'Authorization': 'Basic YnJvd3Nlcjo='},
+					async: false,
+					data: {
+						scope: 'ui',
+						username: 'zxj',
+						password: 'zxj',
+						grant_type: 'password'
+					},
+					success: function (data) {
+						console.dir(data);
+						token = data.access_token;
+					},
+					error: function () {
+						alert('error');
+					}
+				});
+			});
+			$("#but2").click(function(){
+				$.ajax({
+					url: 'accounts/current',
+					datatype: 'json',
+					type: 'get',
+					headers: {'Authorization': 'Bearer ' + token},
+					async: false,
+					success: function (data) {
+						console.dir(data);
+					},
+					error: function () {
+						alert('error');
+					}
+				});
+			});
+			$("#but4").click(function(){
+				$.ajax({
+					url: 'accounts/statistics',
+					datatype: 'json',
+					type: 'get',
+					headers: {'Authorization': 'Bearer ' + token},
+					async: false,
+					success: function (data) {
+						console.dir(data);
+					},
+					error: function () {
+						alert('error');
+					}
+				});
+			});
+			$("#but3").click(function(){
+				$.ajax({
+					url: 'uaa/users/logout',
+					datatype: 'json',
+					type: 'post',
+					headers: {'Authorization': 'Bearer ' + token,'Content-type':'application/json; charset=utf-8'},
+					async: false,
+					data : {},
+					success: function (data) {
+						console.dir(data);
+					},
+					error: function (req) {
+						console.dir(req);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
